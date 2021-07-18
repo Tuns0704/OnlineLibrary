@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OnlineLibrary.Models;
+using OnlineLibrary.Models.ViewModels;
 
-namespace OnlineLibrary.Controllers
+namespace OnlineLibrary.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
