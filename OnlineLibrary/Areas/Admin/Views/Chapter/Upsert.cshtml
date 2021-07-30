@@ -1,0 +1,56 @@
+﻿@model OnlineLibrary.Models.ViewModels.ChapterVM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create Chapter";
+}
+
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.Chapter.Id != 0)
+        {
+            title = "Edit Chapter";
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title </h2>
+        </div>
+        <div class="form-group row mt-2">
+            <div class="col-4">
+                Chapter
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(m => m.Chapter.DocumentId, Model.DocumentList, "- Select a Document",
+                new { @class = "form-control" })
+                <span asp-validation-for="Chapter.DocumentId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Chapter.Content"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Chapter.Content" class="form-control" />
+                    <span asp-validation-for="Chapter.Content" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+                    @if (Model.Chapter.Id != 0)
+                    {
+                        <partial name="_EditAndBackToListButton" />
+                    }
+                    else
+                    {
+                        <partial name="_CreateAndBackToListButton" />
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,8 +1,24 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<OnlineLibrary.Models.Document>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div class="row pb-3">
+        @foreach(var document in Model) {
+        <div class="col-lg-3 col-md-6" >
+            <div class="row p-2">
+                <div class="col-12  p-1 bg-light" style="border: 1px solid #0e0a0a; border-radius: 5px; ">
+                    <div class="card" style="border:0px;">
+                        <img src="@document.ImageUrl" class="card-img-top rounded"/>
+                        <div class="pl-1">
+                            <p class="card-title h5 mt-2"><b>@document.Title</b></p>
+                            <p class="card-title text-primary">by <b>@document.Author.Name</b></p>
+                            <p class="card-title text-primary">Price: <b>@document.Price</b>$</p>
+                        </div>
+                    </div>
+                    <div >
+                        <a asp-action="Details" class="btn btn-lig form-control mt-2 bg-dark text-light rounded" asp-route-id="@document.Id">Detail</a>
+                    </div>
+                </div>          
+            </div>
+        </div>
+        }
+    </div>
+        

@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-primary">Document List </h2>
+    </div>
+    <div class="col-6 text-lg-end">
+        <a class="btn btn-danger" asp-action="Upsert"><i class="fas fa-plus"></i> &nbsp; Create New Document</a>
+    </div>
+</div>
+
+<br />
+<div class="p-4 border rounded">
+    <table id="tblData" class="table table-borderless table-hover text-dark table-info" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Price</th>
+                <th scope="col">Category</th>
+                <th scope="col">Author</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/document.js"></script>
+}

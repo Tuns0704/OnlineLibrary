@@ -1,17 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineLibrary.DataAccess.Data;
+using OnlineLibrary.DataAccess.Repository;
+using OnlineLibrary.DataAccess.Repository.IRepository;
+using OnlineLibrary.Utility;
 
 namespace OnlineLibrary
 {
@@ -30,10 +35,31 @@ namespace OnlineLibrary
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
+               .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+            services.AddAuthentication().AddFacebook(options =>
+            {
+                options.AppId = "525701715418287";
+                options.AppSecret = "e8900d60d5913c66b60dfdb8b855c6c8";
+            });
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "929218981829-eh21rgp1jjsck26vcnn077h5jaf2j0bc.apps.googleusercontent.com";
+                options.ClientSecret = "QXxbSd2zJM-9aEGzQAM-6s-S";
+            });
+            services.AddControllersWithViews()
+                      .AddNewtonsoftJson(options =>
+                      options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
