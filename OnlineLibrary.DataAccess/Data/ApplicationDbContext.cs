@@ -19,5 +19,6 @@ namespace OnlineLibrary.DataAccess.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         //public DbSet<RequestAccess> RequestAccesses { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OnlineLibrary.DataAccess.Repository.IRepository;
 using OnlineLibrary.Models;
@@ -36,8 +37,8 @@ namespace OnlineLibrary.Areas.Customer.Controllers
 
         public IActionResult Details(int id)
         {
-            var productFromDb = _unitOfWork.Document.GetFirstOrDefault(u => u.Id == null, includeProperties: "Category,Author,Chapter");
-            return View();  
+            var productFromDb = _unitOfWork.Document.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category,Author,Chapter");
+            return View(productFromDb);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

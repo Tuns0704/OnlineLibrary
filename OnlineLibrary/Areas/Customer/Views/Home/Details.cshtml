@@ -2,79 +2,57 @@
 
 <form method="post">
     <input hidden asp-for="Id" />
-    <div class="container backgroundWhite">
+    <div class="container backgroundWhite mt-3">
         <div class="card">
-            <div class="card-header bg-light text-light ml-0 row container">
-                <div class="col-12 col-md-6">
-                    <h1 class="text-primary"></h1>
-                    <p class="text-warning"></p>
-                </div>
-                <div class="col-12 col-md-6 text-md-right pt-4">
-                    <span class="badge badge-success pt-2" style="height:30px;"></span>
-                    <span class="badge badge-warning pt-2" style="height:30px;"></span>
-                </div>
-            </div>
-            <div class="card-body">
+            <div class="card-header">
                 <div class="container rounded p-2">
                     <div class="row">
                         <div class="col-8 col-lg-8">
 
                             <div class="row pl-2">
-                                <h5 class="text-muted">ISBN : --ISBN--</h5>
+                                <h5 class="text-muted">@Html.DisplayFor(model => model.Title)</h5>
                             </div>
                             <div class="row pl-2">
-                                <h5 class="text-muted pb-2">List Price: <strike>$ --LIST PRICE--</strike></h5>
-                            </div>
-                            <div class="row text-center pl-2">
-                                <div class="p-1 col-2 bg-secondary border-bottom">
-                                    <div>Quantity</div>
-                                </div>
-                                <div class="p-1 col-2 bg-secondary border-bottom">
-                                    <div>1-49</div>
-                                </div>
-                                <div class="p-1 col-2 bg-secondary border-bottom">
-                                    <div>50-99</div>
-                                </div>
-                                <div class="p-1 col-2 bg-secondary border-bottom">
-                                    <div>100+</div>
-                                </div>
-                            </div>
-                            <div class="row text-center pl-2" style="color:maroon; font-weight:bold">
-                                <div class="p-1 col-2 bg-secondary">
-                                    <div>Price</div>
-                                </div>
-                                <div class="p-1 col-2 bg-secondary">
-                                    <div>--PRICE--</div>
-                                </div>
-                                <div class="p-1 col-2 bg-secondary">
-                                    <div>--PRICE 50--</div>
-                                </div>
-                                <div class="p-1 col-2 bg-secondary">
-                                    <div>--PRICE 100--</div>
-                                </div>
+                                <p class="text-secondary mt-2">Description: @Html.DisplayFor(model => model.Desription)</p>
                             </div>
                             <div class="row pl-2">
-                                <p class="text-secondary">--DESCRIPTION--</p>
+                                <p class="text-secondary">Author: @Html.DisplayFor(model => model.Author.Name)</p>
                             </div>
                             <div class="row pl-2">
-                                <div class="col-2 text-primary"><h4>Count</h4></div>
-                                <div class="col-10"><input class="form-control" /></div>
+                                <p class="text-secondary">Category: @Html.DisplayFor(model => model.Category.Name)</p>
+                            </div>
+                            <div class="row pl-2">
+                                <p class="text-secondary">ISBN: @Html.DisplayFor(model => model.ISBN)</p>
+                            </div>
+                            <div class="row pl-2">
+                                <p class="text-secondary">Price: @Html.DisplayFor(model => model.Price)</p>
                             </div>
                         </div>
                         <div class="col-12 col-lg-3 offset-lg-1 text-center">
-                            <img src="https://via.placeholder.com/150" width="100%" class="rounded" />
+                            <img src="@Html.DisplayFor(model => model.ImageUrl)" width="100%" class="rounded" />
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="card-body">
+                <ul class="">
+                    <h2>Chapter:</h2>
+                    @foreach (var chapter in Model.Chapter)
+                    {
+                        <li class="row p-2">
+                            @chapter.Content
+                        </li>
+                    }
+                </ul>
+            </div>
             <div class="card-footer">
                 <div class="row">
                     <div class="col-12 col-md-6 pb-1">
-                        <a lass="btn btn-success form-control  btn-square btn-lg" style="height:50px;">Back to List</a>
+                        <a class="btn btn-success form-control">Back to List</a>
                     </div>
                     <div class="col-12 col-md-6 pb-1">
 
-                        <button type="submit" value="Add to Cart" class="btn btn-primary btn-square btn-lg form-control" style="height:50px;">Add to Cart</button>
+                        <button type="submit" class="btn btn-info  form-control">Request to read</button>
 
                     </div>
                 </div>
